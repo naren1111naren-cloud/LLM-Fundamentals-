@@ -1,68 +1,355 @@
-# LLM Fundamentals Playground (Phase 01)
+# 🧠 LLM Fundamentals Playground
 
-> **Making LLM Behavior Observable**  
-> An interactive engineering environment for understanding the core foundations behind modern Large Language Model systems.
+### Learn LLM fundamentals by building and experimenting.
 
-Built as part of **Phase 1 of the LLM Engineering Journey** for a build-in-public showcase on LinkedIn.
+> A simple interactive playground I built during Phase 1 of my LLM learning journey to understand how tokens, context, prompts, temperature, structured outputs, hallucinations, and streaming work.
 
----
-
-## ⚡ What Makes This Different?
-
-Most beginner AI projects build a generic ChatGPT clone. This playground is designed from first principles as an **observable developer laboratory** to visually deconstruct the mechanics that occur between user keystrokes and deterministic application execution:
-
-1. **Token Explorer (Byte Pair Encoding)**: Visualizes subword partition boundaries, preserved whitespace tokens, byte lengths, and token vocabulary IDs.
-2. **Context Window Simulator**: Stacked memory visualization (System, RAG, Chat History, Question, Completion Reserve) with dynamic saturation warnings at 85%+ memory horizons.
-3. **Prompt Engineering Lab**: Side-by-side evaluation of ambiguous unconstrained prompts vs. role-based, schema-constrained engineered specifications with live clarity/specificity scores.
-4. **Temperature Playground**: Interactive sampling slider with real-time Softmax probability distribution curves across top candidate logits, contrasting greedy argmax ($T=0.1$) with creative entropy ($T=1.3$).
-5. **Structured Output (RFC-8259)**: Grammar-constrained decoding converting natural language into typed JSON objects with validation checks (Valid JSON, Schema Match, Parseable).
-6. **Hallucination Lab**: A direct, visual proof that **Confidence $\neq$ Correctness**. Contrasts deceptive parametric hallucinations against grounded RAG evidence citations.
-7. **Streaming Telemetry**: Real-time token generation with live Server-Sent Events (SSE) signal, Time to First Token (TTFT) metrics, and tokens/sec throughput.
-8. **LLM Application Pipeline**: Clickable 8-stage architectural blueprint from raw user input to deterministic application integration, plus the Phase 1 $\to$ Phase 2 roadmap.
+`LLM` &nbsp; `Generative AI` &nbsp; `React` &nbsp; `TypeScript` &nbsp; `Learning Project`
 
 ---
 
-✨ WHAT CAN YOU EXPLORE?
-
-Create a visually attractive table:
-
-#	Experiment	What it teaches
-01	🔤 Token Explorer	How text becomes tokens
-02	🧠 Context Window	What information an LLM can see
-03	✍️ Prompt Lab	How instructions affect responses
-04	🌡️ Temperature	How sampling affects output
-05	📦 Structured Output	Turning text into usable JSON
-06	⚠️ Hallucination Lab	Why LLM answers can be wrong
-07	⚡ Streaming	How responses arrive progressively
-08	🏗️ LLM Pipeline	How the pieces fit together
+[🚀 Explore the Experiments](#-what-can-you-explore) &nbsp;•&nbsp; [📖 Learning Journey](#-why-i-built-this) &nbsp;•&nbsp; [🏗️ Architecture Flow](#️-simple-architecture)
 
 ---
 
-## 🚀 Getting Started
+## 👀 What is this?
 
-### Prerequisites
-- Node.js 18+
-- npm 9+
+Instead of only reading about LLM concepts, I wanted to see them working.
 
-### Installation & Run
-```bash
-# Install dependencies
-npm install
+So I built a small interactive playground where each concept can be explored through simple experiments.
 
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
+```text
+Text
+ ↓
+Tokens
+ ↓
+Context
+ ↓
+Prompt
+ ↓
+LLM
+ ↓
+Output
+ ↓
+Application
 ```
 
-Open [http://127.0.0.1:5173/](http://127.0.0.1:5173/) in your browser.
+---
+
+## ✨ What Can You Explore?
+
+| # | Experiment | What it teaches |
+|---|---|---|
+| **01** | 🔤 **Token Explorer** | How text is segmented into subword token units |
+| **02** | 🧠 **Context Window** | What information an LLM can actually see in memory |
+| **03** | ✍️ **Prompt Lab** | How constraints, roles, and format shape responses |
+| **04** | 🌡️ **Temperature** | How sampling settings influence response variability |
+| **05** | 📦 **Structured Output** | Turning natural language into application-ready JSON |
+| **06** | ⚠️ **Hallucination Lab** | Why fluent, confident answers can still be factually wrong |
+| **07** | ⚡ **Streaming** | How tokens arrive progressively via server-sent events |
+| **08** | 🏗️ **LLM Pipeline** | How the pieces fit together into a software application |
 
 ---
 
-## 🛠 Tech Stack
-- **Framework**: React 19 + TypeScript + Vite
-- **Styling**: Tailwind CSS (Tailored dark midnight theme, electric cyan & violet glows)
-- **Animation**: Framer Motion
-- **Icons**: Lucide React
-- **Design System**: Developer tooling aesthetic (OpenAI tooling + modern research dashboard)
+## 🎯 Why I Built This
+
+When I started learning LLMs, I noticed that it was easy to understand the definitions but harder to understand what actually happens inside an LLM application.
+
+So instead of only taking notes, I decided to turn the concepts into small interactive experiments.
+
+This project is my way of learning by building.
+
+---
+
+## 🧪 The Experiments
+
+### 01 — Token Explorer
+
+Explore how text can be divided into smaller token units before being processed by a language model.
+
+```text
+"Large Language Models"
+
+        ↓
+
+"Large" | " Language" | " Models"
+```
+
+LLMs do not process whole sentences or letters directly—they read sequences of integer token identifiers. This experiment visually segments text in real time to show subword splits and whitespace preservation.
+
+---
+
+### 02 — Context Window
+
+Understand how system instructions, conversation history, retrieved information, and the current question become part of the model's context.
+
+```text
+System instructions
+       ↓
+Conversation history
+       ↓
+Retrieved information (RAG)
+       ↓
+Current question
+       ↓
+      LLM
+```
+
+The model has zero memory outside the active context window. An interactive meter demonstrates how prompt accumulation uses up available space and why attention degrades when the window approaches its limit.
+
+---
+
+### 03 — Prompt Lab
+
+Compare vague prompts with clearer prompts and see how instructions, constraints, and formatting can influence responses.
+
+```text
+❌ Tell me about AI.
+
+        VS
+
+✅ Explain AI to a second-year CS student
+   in 5 simple bullet points.
+```
+
+Prompt engineering is essentially software specification: setting roles, output bounds, and negative constraints directly eliminates conversational filler and ambiguous outputs.
+
+---
+
+### 04 — Temperature & Sampling
+
+Experiment with temperature and observe how changing sampling settings can influence response variability.
+
+Temperature acts as a mathematical divisor on the raw output logits before the Softmax function is applied:
+
+* **Low temperature ($T \approx 0.1$):** Sharpens probabilities. Selects the most likely next tokens (greedy argmax). Yields consistent, predictable answers.
+* **Medium temperature ($T \approx 0.7$):** Balanced distribution. The default for conversational assistants.
+* **High temperature ($T \ge 1.2$):** Flattens the probability curve. Low-probability tokens have a higher chance of being picked, introducing variance and creativity at the cost of coherence.
+
+---
+
+### 05 — Structured Output
+
+See how natural language turns into reliable, typed data structures:
+
+```text
+Natural Language
+       ↓
+      LLM
+       ↓
+     JSON
+```
+
+```json
+{
+  "name": "Rahul",
+  "branch": "CSE",
+  "year": 2,
+  "skills": ["Java", "Python", "AI"]
+}
+```
+
+Without structured outputs, connecting an LLM to an application requires fragile regex parsing. Constrained JSON decoding ensures downstream databases and APIs receive valid, type-safe data every time.
+
+---
+
+### 06 — Hallucination Lab
+
+```text
+Question
+   ↓
+LLM
+   ↓
+Answer
+   ↓
+Check Evidence
+```
+
+> **One of the biggest lessons from this phase was that a confident answer is not automatically a correct answer.**
+
+Language models are optimized for syntactic fluency and next-token probability, not factual truth. When asked about a fictional company:
+* **Without context:** The model generates plausible-sounding co-founders with high confidence—a complete fabrication.
+* **With grounded context:** The model extracts the verified founder directly from the provided source document with verifiable citations.
+
+---
+
+### 07 — Streaming
+
+Instead of waiting for the entire response to finish generating on the server, streaming allows output to appear progressively token by token:
+
+```text
+AI
+AI agents
+AI agents can
+AI agents can use
+AI agents can use tools
+```
+
+Using Server-Sent Events (SSE), Time to First Token (TTFT) drops to ~240ms, making conversational interfaces feel fast and responsive.
+
+---
+
+## 🏗️ Simple Architecture
+
+```mermaid
+flowchart LR
+    A[User Input] --> B[Prompt]
+    B --> C[Context Assembly]
+    C --> D[LLM Inference]
+    D --> E[Structured Output]
+    E --> F[Application]
+```
+
+Modern LLM applications are not just a single prompt call—they are pipelines. This playground demonstrates and isolates each step in that sequence.
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology | Used for |
+|---|---|
+| **React 19** | User interface & reactive state |
+| **TypeScript** | Type safety across token and prompt schemas |
+| **Vite** | Fast local development and production bundling |
+| **Tailwind CSS** | Clean, minimalist light-theme styling |
+| **Framer Motion** | Subtle UI transitions |
+| **Lucide React** | Clean, lightweight icons |
+
+*Note: The playground runs completely client-side using deterministic simulation models and local BPE tokenization—no external paid API keys or subscriptions required to explore.*
+
+---
+
+## 📁 Project Structure
+
+```text
+llm-fundamentals/
+├── index.html
+├── package.json
+├── tailwind.config.js
+├── tsconfig.json
+├── vite.config.ts
+└── src/
+    ├── App.tsx
+    ├── main.tsx
+    ├── index.css
+    ├── components/
+    │   └── Topbar.tsx
+    ├── data/
+    │   ├── architectureNodes.ts
+    │   └── sampleData.ts
+    ├── pages/
+    │   ├── Overview.tsx
+    │   ├── TokenExplorer.tsx
+    │   ├── ContextWindow.tsx
+    │   ├── PromptLab.tsx
+    │   ├── TemperatureLab.tsx
+    │   ├── StructuredOutput.tsx
+    │   ├── HallucinationLab.tsx
+    │   ├── Streaming.tsx
+    │   └── Architecture.tsx
+    ├── types/
+    │   └── index.ts
+    └── utils/
+        └── tokenizer.ts
+```
+
+---
+
+## 🚀 Run Locally
+
+Prerequisites: [Node.js](https://nodejs.org/) (version 18 or newer).
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/your-username/llm-fundamentals.git
+
+# 2. Enter the project folder
+cd llm-fundamentals
+
+# 3. Install dependencies
+npm install
+
+# 4. Start the local development server
+npm run dev
+```
+
+Open `http://localhost:5173/` in your browser.
+
+---
+
+## 📸 Preview
+
+> Screenshots coming soon.
+
+---
+
+## 💡 Key Takeaways
+
+* **Tokens, not words:** LLMs process discrete subword token sequences, which affects pricing, context limits, and language performance.
+* **Context is working memory:** The model only knows what is provided in the active context window.
+* **Prompt structure matters:** Defining personas, constraints, and target formatting turns probabilistic text into predictable outputs.
+* **Sampling parameters shape behavior:** Temperature directly scales the logit probability distribution before token selection.
+* **Structured outputs enable software integration:** Enforcing JSON schemas allows LLMs to interact with databases and APIs.
+* **Confidence $\neq$ Correctness:** High linguistic fluency does not guarantee factual accuracy; external grounding and citations are essential.
+* **Building beats reading:** Building interactive experiments helped me understand the concepts much better than reading alone.
+
+---
+
+## 📚 Phase 1 Learning Map
+
+```text
+Phase 0 — Foundations (Python, APIs, Math)
+   ↓
+Phase 1 — LLM Fundamentals ✓ (This Project)
+   ↓
+Phase 2 — Tool Calling & Function Execution
+   ↓
+Phase 3 — Retrieval-Augmented Generation (RAG)
+   ↓
+Phase 4 — Autonomous Agents & Multi-turn Loops
+   ↓
+Phase 5 — Evaluation, Guardrails & Production AI
+```
+
+> *This project represents my Phase 1 milestone.*
+
+---
+
+## 🔭 What's Next?
+
+### Phase 2 — Tool Calling
+
+Next, I want to transition from:
+
+```text
+LLM
+ ↓
+Generate an answer
+```
+
+to:
+
+```text
+LLM
+ ↓
+Choose a tool
+ ↓
+Execute an action
+ ↓
+Use the result
+ ↓
+Generate a verified answer
+```
+
+The next project will explore function schemas, structured tool execution, and combining retrieval with action loops.
+
+---
+
+## 👨‍💻 Learning in Public 🚀
+
+> This project is part of my journey toward understanding and building AI applications.
+>
+> I'm learning by building small systems, breaking concepts down, and documenting what I discover along the way.
+
+**Phase 1 → LLM Fundamentals ✅**  
+**Next → Tool Calling**
