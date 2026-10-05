@@ -22,13 +22,19 @@ Most beginner AI projects build a generic ChatGPT clone. This playground is desi
 
 ---
 
-## 📸 LinkedIn Presentation Mode
+✨ WHAT CAN YOU EXPLORE?
 
-Click the **Presentation Mode** button in the top navigation bar to:
-- Hide the sidebar navigation
-- Expand the main interactive canvas into optimal 16:9 screenshot framing
-- Enhance contrast and glow tokens for high-resolution visual capture
-- Rapidly switch between the 5 key showcase screens: **Token Explorer, Prompt Lab, Structured Output, Hallucination Lab, and Architecture**.
+Create a visually attractive table:
+
+#	Experiment	What it teaches
+01	🔤 Token Explorer	How text becomes tokens
+02	🧠 Context Window	What information an LLM can see
+03	✍️ Prompt Lab	How instructions affect responses
+04	🌡️ Temperature	How sampling affects output
+05	📦 Structured Output	Turning text into usable JSON
+06	⚠️ Hallucination Lab	Why LLM answers can be wrong
+07	⚡ Streaming	How responses arrive progressively
+08	🏗️ LLM Pipeline	How the pieces fit together
 
 ---
 
