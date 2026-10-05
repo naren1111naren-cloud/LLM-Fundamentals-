@@ -12,29 +12,6 @@
 
 ---
 
-## 👀 What is this?
-
-Instead of only reading about LLM concepts, I wanted to see them working.
-
-So I built a small interactive playground where each concept can be explored through simple experiments.
-
-```text
-Text
- ↓
-Tokens
- ↓
-Context
- ↓
-Prompt
- ↓
-LLM
- ↓
-Output
- ↓
-Application
-```
-
----
 
 ## ✨ What Can You Explore?
 
